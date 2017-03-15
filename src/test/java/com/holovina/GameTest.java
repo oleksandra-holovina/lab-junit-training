@@ -11,9 +11,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by Oleksandra_Holovina on 3/15/2017.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class GameTest {
 
@@ -30,8 +27,8 @@ public class GameTest {
         for (int i = 0; i < kicks.length; ++i){
             try {
                 game.kick("",team, kicks[i]);
-            } catch (IllegalKickExecption illegalKickExecption) {
-                illegalKickExecption.printStackTrace();
+            } catch (IllegalKickException illegalKickException) {
+                illegalKickException.printStackTrace();
             }
         }
     }
@@ -40,8 +37,8 @@ public class GameTest {
         for (int i = 0; i < kicks.length; ++i){
             try {
                 spyGame.kick("",team, kicks[i]);
-            } catch (IllegalKickExecption illegalKickExecption) {
-                illegalKickExecption.printStackTrace();
+            } catch (IllegalKickException illegalKickException) {
+                illegalKickException.printStackTrace();
             }
         }
     }
@@ -68,7 +65,6 @@ public class GameTest {
         kickMany(0, new int[]{1,1,1,1,1});
         kickMany(1, new int[]{1,1,1,1,1});
 
-
         assertEquals(-1, game.winner());
     }
 
@@ -80,7 +76,7 @@ public class GameTest {
         assertEquals(0, game.winner());
     }
 
-    @Test(expected=IllegalKickExecption.class)
+    @Test(expected=IllegalKickException.class)
     public void illegalKick() throws Exception {
         kickMany(0, new int[]{1,1,1,1,1,1});
         kickMany(1, new int[]{1,1,1,1,1,0});
@@ -101,8 +97,8 @@ public class GameTest {
         kickSpyMany(0, new int[]{0});
         kickSpyMany(1, new int[]{0});
 
-        when(spyGame.totalPlayerPriceNotKicked(0, 1)).thenReturn(0.0);
-        when(spyGame.totalPlayerPriceNotKicked(1, 1)).thenReturn(0.0);
+        when(spyGame.totalPlayerPrice(0, 1)).thenReturn(0.0);
+        when(spyGame.totalPlayerPrice(1, 1)).thenReturn(0.0);
 
         assertThat(spyGame.score(), equalTo("0[0.0]:0[0.0]"));
     }
@@ -112,8 +108,8 @@ public class GameTest {
         kickSpyMany(0, new int[]{0,0,0,0,0,0,0});
         kickSpyMany(1, new int[]{0,0,0,0,0,0,0});
 
-        when(spyGame.totalPlayerPriceNotKicked(0, 7)).thenReturn(50000.0);
-        when(spyGame.totalPlayerPriceNotKicked(1, 7)).thenReturn(60000.0);
+        when(spyGame.totalPlayerPrice(0, 7)).thenReturn(50000.0);
+        when(spyGame.totalPlayerPrice(1, 7)).thenReturn(60000.0);
 
         assertThat(spyGame.score(), equalTo("0[50000.0]:0[60000.0]"));
     }
