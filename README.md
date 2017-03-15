@@ -1,1 +1,3 @@
-# lab-junit-training
+# Lab JUnit Training
+
+TDD and JUnit training task
